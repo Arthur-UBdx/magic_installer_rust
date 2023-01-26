@@ -1,7 +1,6 @@
 use native_windows_gui as nwg;
 use native_windows_derive::NwgUi;
 
-mod ui {
 // ---- UI ---- //
 
 // Main window
@@ -39,5 +38,4 @@ impl DownloadWindow {
     fn close_window() {
         nwg::stop_thread_dispatch();
     }
-}
 }

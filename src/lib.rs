@@ -1,3 +1,5 @@
+mod file_handling;
+mod ui;
 
 use native_windows_gui::NativeUi;
 use native_windows_gui as nwg;
@@ -57,10 +59,10 @@ pub fn download_mods(config: Config) -> Result<Vec<u8>, Box<dyn std::error::Erro
     let download_window = DownloadWindow::build_ui(Default::default()).expect("Failed to build UI");
 
     tokio::spawn(async move {   
-        download_stream(config.mod_files_url, tx).await;
+        download_stream(config.mod_files_url, tx).await.unwrap();
     });
 
-    let data: Vec<u8> = Vec::new();
+    let mut data: Vec<u8> = Vec::new();
     loop {
         let download_info: DownloadInfo = rx.recv().unwrap();
         match download_info.status {
@@ -68,8 +70,8 @@ pub fn download_mods(config: Config) -> Result<Vec<u8>, Box<dyn std::error::Erro
                 let percentage_downloaded: u32 = (download_info.downloaded_size as f32 / download_info.total_size as f32 * 100.0) as u32;
                 download_window.progress_bar.set_pos(percentage_downloaded);
             },
-            DownloadStatus::Finished(data) => {
-                data;
+            DownloadStatus::Finished(d) => {
+                data = d;
                 break;
             }
         }

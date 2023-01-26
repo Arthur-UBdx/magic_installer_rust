@@ -1,7 +1,7 @@
 use reqwest;
 use std::sync::mpsc;
 
-mod file_handling{
+
 // ---- File handling ---- //
 
 #[derive(Debug)]
@@ -73,4 +73,3 @@ pub fn extract_archive(data: Vec<u8>, path: &str) -> Result<(), std::io::Error> 
     }
     Ok(())
 }
-};

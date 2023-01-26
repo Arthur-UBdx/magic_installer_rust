@@ -1,11 +1,8 @@
-// extern crate native_windows_gui as nwg;
-// extern crate native_windows_derive as nwd;
-
 use native_windows_gui::NativeUi;
 use native_windows_gui as nwg;
 use native_windows_derive as nwd;
 
-use crate::{download_mods, Config};
+use magic_installer::{download_mods, Config};
 use std::sync::mpsc;
 use std::thread;
 // use std::thread::sleep;
