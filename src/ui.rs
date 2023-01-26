@@ -21,7 +21,7 @@ impl MainWindow {
 #[derive(Default, NwgUi)]
 pub struct DownloadWindow {
     #[nwg_control(size: (500, 100), position: (300, 300), title: "Téléchargement", flags: "WINDOW|VISIBLE")]
-    #[nwg_events( OnWindowClose: [DownloadWindow::close_window()] )]
+    #[nwg_events( OnWindowClose: [] )]
     pub window: nwg::Window,
 
     #[nwg_control(text: "Téléchargement en cours...", size: (300, 30), position: (25, 20))]
@@ -35,7 +35,7 @@ pub struct DownloadWindow {
 }
 
 impl DownloadWindow {
-    fn close_window() {
+    pub fn close() {
         nwg::stop_thread_dispatch();
     }
 }

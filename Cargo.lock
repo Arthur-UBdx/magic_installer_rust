@@ -562,6 +562,7 @@ dependencies = [
  "native-windows-gui",
  "reqwest",
  "tokio",
+ "winapi",
  "zip",
 ]
 

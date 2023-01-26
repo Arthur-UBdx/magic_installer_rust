@@ -1,0 +1,12 @@
+fn download_file(url: &str) -> Vec<u8> {
+    let mut response = reqwest::blocking::get(url).unwrap();
+    let mut buffer = Vec::new();
+    response.copy_to(&mut buffer).unwrap();
+    buffer
+}
+
+fn save_file(data: Vec<u8>, path: &str) -> Result<(), std::io::Error> {
+    let mut file = File::create(path).unwrap();
+    file.write_all(&data).unwrap();
+    Ok(())
+}

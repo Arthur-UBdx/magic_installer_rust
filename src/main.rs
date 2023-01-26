@@ -1,18 +1,19 @@
-use native_windows_gui::NativeUi;
-use native_windows_gui as nwg;
-use native_windows_derive as nwd;
+mod file_handling;
 
 use magic_installer::{download_mods, Config};
-use std::sync::mpsc;
-use std::thread;
-// use std::thread::sleep;
-// use std::time::Duration;
 
 #[tokio::main]
 async fn main() -> ! {
-    let config: Config = Config::from((String::new(),String::from("https://github.com/Arthur-UBdx/fabric_minecraft/zipball/main"),String::new()));
-    // let config: Config = Config::new();
-    download_mods(config);
+    // let config: Config = Config::from(String::from("https://github.com/Arthur-UBdx/fabric_minecraft/zipball/main"),String::new());
+    let config: Config = Config::new();
+    // let _data: Vec<u8> = match download_mods(config) {
+    //     Ok(data) => data,
+    //     Err(_) => panic!("Erreur lors du téléchargement des mods"),
+    // };
+
+    let path = "%appdata%\\.minecraft";
+    let path_var = crate::file_handling::get_env_path(path);
+    println!("{}", path_var);
 
     loop {
         std::thread::sleep(std::time::Duration::from_millis(100));
