@@ -1,22 +1,20 @@
 mod file_handling;
+mod ui;
 
-use magic_installer::{download_mods, Config};
+use native_windows_derive as nwd;
+use native_windows_gui as nwg;
+use nwg::NativeUi;
+
+const IMAGE: &str = "src/assets/kanye.bmp";
 
 #[tokio::main]
-async fn main() -> ! {
-    // let config: Config = Config::from(String::from("https://github.com/Arthur-UBdx/fabric_minecraft/zipball/main"),String::new());
-    let config: Config = Config::new();
-    // let _data: Vec<u8> = match download_mods(config) {
-    //     Ok(data) => data,
-    //     Err(_) => panic!("Erreur lors du téléchargement des mods"),
-    // };
-
-    let path = "%appdata%\\.minecraft";
-    let path_var = crate::file_handling::get_env_path(path);
-    println!("{}", path_var);
-
-    loop {
-        std::thread::sleep(std::time::Duration::from_millis(100));
-    }
+async fn main() {
+    nwg::init().expect("Failed to init Native Windows GUI :(");
+    let main_window = ui::MainWindow::build_ui(Default::default()).expect("Failed to build UI");
+    ui::MainWindow::init_image_frame(&main_window.image_frame);
+    nwg::dispatch_thread_events();
 }
 
+//TODO 
+// - Add a way to change config.
+// - Resize the image
